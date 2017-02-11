@@ -3,7 +3,7 @@ import pandas as pd
 from atm import *
 
 #df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_us_cities.csv')
-thinglist = main()
+thinglist = main("branch")
 thingyList = {"name" : thinglist[0],
               "pop" : thinglist[1],
 	       "lon" : thinglist[2],
@@ -14,12 +14,12 @@ df = pd.DataFrame(thingyList)
 #print(df)
 df.head()
 
-df['text'] = df['name'] + '<br>Population ' + (df['pop']).astype(str)+'hello world'
-limits = [(0,100),(101,200),(201,300),(301,400),(401,1000)]
+df['text'] = df['name'] + '<br>Visitors' + (df['pop']).astype(str)
+limits = [(0,41),(42,82),(83,124),(125,166),(167,208)]
 colors = ["rgb(0,116,217)","rgb(255,65,54)","rgb(133,20,75)","rgb(255,133,27)","lightgrey"]
 cities = []
 scale = 1000
-
+nameList = ["low","medium","moderate","high","very high"]
 for i in range(len(limits)):
     lim = limits[i]
     df_sub = df[lim[0]:lim[1]]
@@ -35,8 +35,8 @@ for i in range(len(limits)):
             line = dict(width=0.5, color='rgb(40,40,40)'),
             sizemode = 'area'
         ),
-        name = '{0} - {1}'.format(lim[0],lim[1]) )
-    print("!")
+        name = nameList[i] )
+    
     cities.append(city)
 
 layout = dict(

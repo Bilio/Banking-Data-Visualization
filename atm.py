@@ -10,7 +10,9 @@ import statistics
 def getListOfAmount(data):
 	result = []
 	for index in range(0, len(data)):
-		result.append(data[index]["amount_left"])
+		num = data[index]["amount_left"]
+		name = data[index]["name"]
+		result.append((num,name))
 	return result
 
 def amountMain(apiKey):
@@ -21,7 +23,7 @@ def amountMain(apiKey):
 	data = data.replace("false","False")
 	data = eval(data)
 	data = data["data"]
-	print(getListOfAmount(data))
+	return(getListOfAmount(data))
 
 def addressParse(data):
 	result = ""
@@ -44,6 +46,7 @@ def manInsert(data):
 	average = average // len(data)
 	#random.shuffle(result)
 	result = sorted(result, key = lambda x: x[2])
+	print(len(result))
 	return (average,result)
 
 def getStandardDev(data):
@@ -56,13 +59,10 @@ def getStandardDev(data):
 def makeList(data, index):
 	result = []
 	for thing in range(0, len(data)):
-		print(data[thing])
+		#print(data[thing])
 		result.append(data[thing][index])
 	#assert(False)
 	return result
-		 
-	
-	
 
 def randomInsertBranch(apiKey):
 	customerID = 0
@@ -81,12 +81,26 @@ def randomInsertBranch(apiKey):
 	print("\n")
 	print(getStandardDev(tupleList))
 
-def main():
+def main(key):
 	customerId = "589e66741756fc834d9047b4"
 	apiKey = "b41d66a7ca98a1d3df650659190e2e62"
 	
 	#amountMain(apiKey)
-	return randomInsertBranch(apiKey)
+	if key == "branch":
+		return randomInsertBranch(apiKey)
+	if key == "atm":
+		return amountMain(apiKey)
+	if key== "accounts":
+		writeAllAccounts(apiKey)
+		return 
+
+def writeAllAccounts(apiKey):
+	customerID = 0
+	url = "http://api.reimaginebanking.com/enterprise/accounts?key=b41d66a7ca98a1d3df650659190e2e62".format(customerID,apiKey) 
+	data = requests.get(url)
+	file = open("accounts.txt","w")
+	file.write(str(data.text))
+	file.close()
 	
-#main()
+#main("atm")
 
