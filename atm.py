@@ -102,5 +102,7 @@ def writeAllAccounts(apiKey):
 	file.write(str(data.text))
 	file.close()
 	
-#main("atm")
+#x = main("atm")
+
+
 

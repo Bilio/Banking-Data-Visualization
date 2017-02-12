@@ -33,11 +33,14 @@ typeList = thingy[1]
 rewardList = thingy[2]
 balanceList = thingy[3]
 
-
-
-# Get Data: this ex will only use part of it (i.e. rows 750-1500)
 df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminderDataFiveYear.csv')
-print(type(df['year'][750:1500]))
+
+newList = []
+for element in rewardList:
+	if element < 1000:
+		newList.append(element//100)
+	else:
+		newList.append(423)
 newX = pd.Series(rewardList)
 newY = pd.Series(balanceList)
 newZ = pd.Series(typeList)
@@ -51,15 +54,15 @@ trace1 = Scatter3d(
     marker=dict(
         sizemode='diameter',
         sizeref=750,
-        size=df['gdpPercap'][750:1500],
-        color = df['lifeExp'][750:1500],
+	size=df['gdpPercap'][750:1500],
+	color = df['lifeExp'][750:1500],
         colorscale = 'Viridis',
-        colorbar = dict(title = 'Life<br>Expectancy'),
+        colorbar = dict(title = 'Rewards Amount'),
         line=dict(color='rgb(140, 140, 170)')
     )
 )
 
 data=[trace1]
-layout=dict(height=800, width=800, title='Account Information Web')
+layout=dict(height=1000, width=1000, title='Account Information Web')
 fig=dict(data=data, layout=layout)
 py.iplot(fig, filename='3DBubble')

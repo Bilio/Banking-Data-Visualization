@@ -14,11 +14,11 @@ df = pd.DataFrame(thingyList)
 #print(df)
 df.head()
 
-df['text'] = df['name'] + '<br>Visitors' + (df['pop']).astype(str)
+df['text'] = df['name'] + '<br> Visitors' + (df['pop']).astype(str)
 limits = [(0,41),(42,82),(83,124),(125,166),(167,208)]
-colors = ["rgb(0,116,217)","rgb(255,65,54)","rgb(133,20,75)","rgb(255,133,27)","lightgrey"]
+colors = ["rgb(0,116,217)","rgb(255,65,54)","rgb(133,20,75)","rgb(255,133,27)","black"]
 cities = []
-scale = 1000
+scale = 700
 nameList = ["low","medium","moderate","high","very high"]
 for i in range(len(limits)):
     lim = limits[i]
@@ -40,7 +40,7 @@ for i in range(len(limits)):
     cities.append(city)
 
 layout = dict(
-        title = 'Captial One Branch Locations<br>(Click legend to toggle traces)',
+        title = 'Captial One Branch Locations',
         showlegend = True,
         geo = dict(
             scope='usa',
